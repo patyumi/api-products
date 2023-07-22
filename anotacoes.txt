@@ -1,2 +1,0 @@
-# Usar esse modelo para estruturar o projeto
-https://github.com/golang-standards/project-layout

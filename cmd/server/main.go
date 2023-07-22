@@ -1,9 +1,38 @@
 package main
 
-import "github.com/patyumi/api-products/configs"
+import (
+	"net/http"
+
+	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/v5/middleware"
+	"github.com/patyumi/api-products/configs"
+	"github.com/patyumi/api-products/internal/entity"
+	"github.com/patyumi/api-products/internal/infra/database"
+	"github.com/patyumi/api-products/internal/infra/handlers"
+	"gorm.io/driver/sqlite"
+	"gorm.io/gorm"
+)
 
 func main() {
-	config, _ := configs.LoadConfig(".")
-	println(config.DBDriver)
+	_, err := configs.LoadConfig(".")
+	if err != nil {
+		panic(err)
+	}
 
+	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+	if err != nil {
+		panic(err)
+	}
+
+	db.AutoMigrate(&entity.User{}, &entity.Product{})
+	productDB := database.NewProduct(db)
+	productHandler := handlers.NewProductHandler(productDB)
+
+	r := chi.NewRouter()
+	r.Use(middleware.Logger)
+	r.Post("/products", productHandler.CreateProduct)
+	r.Get("/products/{id}", productHandler.GetProduct)
+	r.Put("/products/{id}", productHandler.UpdateProduct)
+
+	http.ListenAndServe(":8000", r)
 }
