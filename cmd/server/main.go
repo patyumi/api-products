@@ -7,12 +7,36 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/jwtauth"
 	"github.com/patyumi/api-products/configs"
+	_ "github.com/patyumi/api-products/docs"
 	"github.com/patyumi/api-products/internal/entity"
 	"github.com/patyumi/api-products/internal/infra/database"
 	"github.com/patyumi/api-products/internal/infra/handlers"
+	httpSwagger "github.com/swaggo/http-swagger"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
+
+// DOCUMENTAÇÃO
+
+// @title Go Expert Api Products
+// @version 1.0
+// @description Product API with authentication
+// @termsOfService http://swagger.io/terms/
+
+// @contact.name Patrícia Yumi
+// @contact.url https://www.linkedin.com/in/patricia-yumi/
+// @contact.email patrciayumi@gmail.com
+
+// @license.name Projeto Pessoal
+// @license.url --
+
+// @host localhost:8000
+// @BasePath /
+
+// Aqui é porque a gente usa um token gerado para autenticar na API
+// @securityDefinitions.apikey ApiKeyAuth
+// @in header
+// @name Authorization
 
 func main() {
 	configs, err := configs.LoadConfig(".")
@@ -54,6 +78,8 @@ func main() {
 
 	r.Post("/users", userHandler.Create)
 	r.Post("/users/generate_token", userHandler.GetJWT)
+
+	r.Get("/docs/*", httpSwagger.Handler(httpSwagger.URL("http://localhost:8000/docs/doc.json")))
 
 	http.ListenAndServe(":8000", r)
 }

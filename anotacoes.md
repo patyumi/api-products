@@ -17,3 +17,13 @@ Exemplos: Go Chi, Gorilla Mux (toolkit)
 
 # Middlewares
 Recebe uma requisição, faz o processamento e retorna a resposta, ele é um intermediador.
+
+# Documentação
+Biblioteca de documentação comum https://github.com/swaggo/swag
+Para rodar a linha de comando você precisa ter a pasta bin referenciada nas suas variáveis de ambiente
+
+O Go segue um padrão de documentação -> Open API https://www.openapis.org/
+A partir de um json gerado no padrão Open API conseguimos trabalhar com o swagger para exibir a nossa documentação
+
+Toda vez que atualizar algo da doc deve rodar esse comando
+`swag init -g cmd/server/main.go`
