@@ -14,3 +14,6 @@ Exemplo: Buffalo, Iris
 
 - Os Roteadores implementam toda a parte de HTTP do Go.
 Exemplos: Go Chi, Gorilla Mux (toolkit)
+
+# Middlewares
+Recebe uma requisição, faz o processamento e retorna a resposta, ele é um intermediador.

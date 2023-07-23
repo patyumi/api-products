@@ -34,6 +34,8 @@ func main() {
 
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
+	r.Use(middleware.Recoverer)
+	//r.Use(LogRequest)
 
 	// agrupamento de rotas
 	r.Route("/products", func(r chi.Router) {
@@ -53,3 +55,12 @@ func main() {
 
 	http.ListenAndServe(":8000", r)
 }
+
+// Middleware exemplo
+// Ele recebe a requisição do usuário, faz algo no meio do caminho (nesse caso é o logger) e depois retorna a mesma requisição
+// func LogRequest(next http.Handler) http.Handler {
+//	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+//		log.Printf("Request: %s %s", r.Method, r.URL.Path)
+//		next.ServeHTTP(w, r)
+//	})
+//}
