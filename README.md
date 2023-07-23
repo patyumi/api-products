@@ -1,5 +1,7 @@
 <h1 align="center"> API Products </h1>
 
+![image](https://github.com/patyumi/api-products/assets/49499091/c8764e93-ce7d-41e8-abbc-565076852082)
+
 <p align="center"> CRUD API of products with JWT authentication.</p>
 <p> </p>
 
