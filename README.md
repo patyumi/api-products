@@ -15,4 +15,4 @@
 
 1. `go mod tidy`
 2. `go run cmd/server/main.go`
-3. Access the address localhost:8000/docs/index.html in your browser and try out the routes
+3. Access the address http://localhost:8000/docs/index.html in your browser and try out the routes
